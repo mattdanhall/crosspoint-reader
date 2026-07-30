@@ -10,6 +10,7 @@
 #include <Xtc.h>
 
 #include <cstring>
+#include <type_traits>
 #include <vector>
 
 #include "CrossPointSettings.h"
@@ -186,9 +187,12 @@ void HomeActivity::loop() {
       case HomeMenuItem::OPDS_BROWSER:
         onOpdsBrowserOpen();
         break;
-      case HomeMenuItem::FILE_TRANSFER:
-        onFileTransferOpen();
+      case HomeMenuItem::POMODORO:
+        onPomodoroOpen();
         break;
+      // case HomeMenuItem::FILE_TRANSFER:
+      //   onFileTransferOpen();
+      //   break;
       case HomeMenuItem::SETTINGS_MENU:
         onSettingsOpen();
         break;
@@ -300,7 +304,7 @@ void HomeActivity::render(RenderLock&&) {
                           std::bind(&HomeActivity::storeCoverBuffer, this));
 
   // Build menu items dynamically
-  std::vector<const char*> menuItems = {tr(STR_BROWSE_FILES), tr(STR_MENU_RECENT_BOOKS), tr(STR_FILE_TRANSFER),
+  std::vector<const char*> menuItems = {tr(STR_BROWSE_FILES), tr(STR_MENU_RECENT_BOOKS), tr(STR_POMODORO),
                                         tr(STR_SETTINGS_TITLE)};
   std::vector<UIIcon> menuIcons = {Folder, Recent, Transfer, Settings};
 
@@ -351,3 +355,5 @@ void HomeActivity::onSettingsOpen() { activityManager.goToSettings(); }
 void HomeActivity::onFileTransferOpen() { activityManager.goToFileTransfer(); }
 
 void HomeActivity::onOpdsBrowserOpen() { activityManager.goToBrowser(); }
+
+void HomeActivity::onPomodoroOpen() { activityManager.goToPomodoro(); }
